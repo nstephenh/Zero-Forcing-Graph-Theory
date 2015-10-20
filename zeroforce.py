@@ -6,16 +6,13 @@ class graph:
 		self.incident = incident
 		self.colored = colored
 		self.vertexlist = list(incident.keys())
-		for vertex in self.colored:
-			if not vertex in self.incident:
-				 raise (Exception("coloring non-existent vertex"))
 	def is_colored(self, verticy):
 		return self.colored[verticy]
 	def print_graph(self):
-		for vertex in self.incident:
+		for vertex in self.vertexlist:
 			print(vertex, self.colored[vertex], self.incident[vertex])
 	def do_color_change_step(self):
-		for vertex in self.colored:
+		for vertex in self.vertexlist:
 			if self.colored[vertex] == True:
 				non_c_adj_count = 0
 				for neighbor in self.incident[vertex]:
@@ -27,19 +24,23 @@ class graph:
 							self.colored[neighbor] = True
 							# print("colored " + neighbor)
 	def check_if_zfs(self): #checks if the graph is a zero forcing set
+		print("checking a graph...")
 		maxiters = len(self.incident)
 		i = 0
 		tempgraph = copy.deepcopy(self)
 		while i < maxiters:
+			print(i)
 			tempgraph.do_color_change_step()
+			tempgraph.print_graph()
 			i += 1
-		for vertex in tempgraph.colored:
+		print("done checking")
+		for vertex in self.vertexlist:
 			if tempgraph.colored[vertex] != True:
 				return False
 		return True
 	def try_all_possible_colorings(self): #that return as a zfs
 		blankgraph = copy.deepcopy(self)
-		for vertex in blankgraph.colored:
+		for vertex in blankgraph.vertexlist:
 			blankgraph.colored[vertex] = False
 		zfsgraphcolorings = []
 		for vertex in blankgraph.vertexlist:
