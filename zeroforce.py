@@ -5,6 +5,7 @@ class graph:
 	def __init__(self, incident, colored):
 		self.incident = incident
 		self.colored = colored
+		self.vertexlist = list(incident.keys())
 		for vertex in self.colored:
 			if not vertex in self.incident:
 				 raise (Exception("coloring non-existent vertex"))
@@ -36,18 +37,42 @@ class graph:
 			if tempgraph.colored[vertex] != True:
 				return False
 		return True
-	def try_all_possible_colorings(self):
+	def try_all_possible_colorings(self): #that return as a zfs
 		blankgraph = copy.deepcopy(self)
 		for vertex in blankgraph.colored:
 			blankgraph.colored[vertex] = False
-		for vertex in blankgraph.incident:
-			pass
-			#Figure out how to color all possible colorings		
+		zfsgraphcolorings = []
+		for vertex in blankgraph.vertexlist:
+			result = None
+			for i in (range(0, len(blankgraph.vertexlist))):
+				result = blankgraph.colornextvertex(vertex)
+				if result != None:
+					zfsgraphcolorings.append(result)
+			
+		return zfsgraphcolorings
+	def colornextvertex(self, vertex):
+		self.colored[vertex] = not self.colored[vertex]
+		print("reversed color of vertex " + vertex)
+		self.print_graph()
+		if self.check_if_zfs() == True:
+			return copy.deepcopy(self)
+		else:
+			print("not a zfs")	
+		if self.colored[vertex] == False:
+			try:
+				nextvertex = self.vertexlist[self.vertexlist.index(vertex) + 1]			
+				return self.colornextvertex(nextvertex)
+			except:
+				pass
+		return None
+				
+				
 coloredgraph = graph({'a' : ["b", "c"], 'b' : ["a", "c"], 'c' : ["a", "b"]},
 {'a' : True, 'b' : True, 'c' : False})
 print(coloredgraph.is_colored('c'))
 print(coloredgraph.check_if_zfs())	
 print(coloredgraph.is_colored('c'))
 coloredgraph.print_graph()
-
-		
+print("now trying every possible coloring")
+print(coloredgraph.try_all_possible_colorings())
+# petersontest = graph({'a' : ["
