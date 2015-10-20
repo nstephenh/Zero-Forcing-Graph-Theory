@@ -80,6 +80,7 @@ class graph:
 		zfses = self.try_all_possible_colorings()
 		for zfs in zfses:
 			thisone = zfs.num_colored_verticies()
+			#print(thisone)
 			if zfn >= thisone:
 				zfn = thisone
 				zfsofzfn = zfs
@@ -92,32 +93,29 @@ class graph:
 		
 coloredgraph = graph({'a' : ["b", "c"], 'b' : ["a", "c"], 'c' : ["a", "b"]},
 {'a' : True, 'b' : True, 'c' : False})
-print(coloredgraph.is_colored('c'))
-print(coloredgraph.check_if_zfs())	
-print(coloredgraph.is_colored('c'))
-coloredgraph.print_graph()
-print("now trying every possible coloring")
+print("zfn k3:")
 print(coloredgraph.get_zfn())
 petersontest = graph({'a' : ["b", "e", 'g'],
 'b' : [ 'a', 'c', 'h'],
-'c' : [ 'b', 'd', 'h'],
+'c' : [ 'b', 'd', 'i'],
 'd' : [ 'c', 'e', 'j'],
 'e' : [ 'a', 'd', 'f'],
 'f' : [ 'e', 'h', 'i'],
 'g' : [ 'a', 'i', 'j'],
 'h' : [ 'b', 'f', 'j'],
-'i' : [ 'c', 'i', 'g'],
+'i' : [ 'c', 'j', 'g'],
 'j' : [ 'd', 'i', 'g']},
-{'a' : True,
-'b' : True,
+{'a' : False,
+'b' : False,
 'c' : False,
 'd' : False,
 'e' : False,
 'f' : False,
-'g' : True,
+'g' : False,
 'h' : False,
-'i' : True ,
-'j' : True})
+'i' : False ,
+'j' : False})
 print(coloredgraph.check_if_zfs())
-
+print("zfn peterson")
 print(petersontest.get_zfn())
+(petersontest.get_zfs_example().print_graph())
