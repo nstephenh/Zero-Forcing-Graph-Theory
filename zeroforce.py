@@ -76,11 +76,13 @@ class graph:
 		return numcolored
 	def get_zfn(self):
 		zfn = len(self.vertexlist)
+		zfsofzfn = None
 		zfses = self.try_all_possible_colorings()
 		for zfs in zfses:
 			thisone = zfs.num_colored_verticies()
 			if zfn >= thisone:
 				zfn = thisone
+				zfsofzfn = zfs
 		return zfn
 		
 coloredgraph = graph({'a' : ["b", "c"], 'b' : ["a", "c"], 'c' : ["a", "b"]},
@@ -91,4 +93,24 @@ print(coloredgraph.is_colored('c'))
 coloredgraph.print_graph()
 print("now trying every possible coloring")
 print(coloredgraph.get_zfn())
-# petersontest = graph({'a' : ["
+petersontest = graph({'a' : ["b", "e", 'g'],
+'b' : [ 'a', 'c', 'h'],
+'c' : [ 'b', 'd', 'h'],
+'d' : [ 'c', 'e', 'j'],
+'e' : [ 'a', 'd', 'f'],
+'f' : [ 'e', 'h', 'i'],
+'g' : [ 'a', 'i', 'j'],
+'h' : [ 'b', 'f', 'j'],
+'i' : [ 'c', 'i', 'g'],
+'j' : [ 'd', 'i', 'g']},
+{'a' : False,
+'b' : False,
+'c' : False,
+'d' : False,
+'e' : False,
+'f' : False,
+'g' : False,
+'h' : False,
+'i' : False ,
+'j' : False})
+print(petersontest.get_zfn())
