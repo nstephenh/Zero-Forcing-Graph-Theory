@@ -25,7 +25,7 @@ class graph:
 					for neighbor in self.incident[vertex]:
 						if self.colored[neighbor] == False:
 							self.colored[neighbor] = True
-							print("colored " + neighbor)
+							# print("colored " + neighbor)
 	def check_if_zfs(self): #checks if the graph is a zero forcing set
 		maxiters = len(self.incident)
 		i = 0
@@ -74,7 +74,7 @@ class graph:
 			else:
 				pass
 		return numcolored
-	def get_zfn(self):
+	def get_zfszfn(self):
 		zfn = len(self.vertexlist)
 		zfsofzfn = None
 		zfses = self.try_all_possible_colorings()
@@ -83,7 +83,12 @@ class graph:
 			if zfn >= thisone:
 				zfn = thisone
 				zfsofzfn = zfs
-		return zfn
+		
+		return (zfsofzfn, zfn)
+	def get_zfn(self):
+		return self.get_zfszfn()[1]
+	def get_zfs_example(self):
+		return self.get_zfszfn()[0]
 		
 coloredgraph = graph({'a' : ["b", "c"], 'b' : ["a", "c"], 'c' : ["a", "b"]},
 {'a' : True, 'b' : True, 'c' : False})
@@ -103,14 +108,16 @@ petersontest = graph({'a' : ["b", "e", 'g'],
 'h' : [ 'b', 'f', 'j'],
 'i' : [ 'c', 'i', 'g'],
 'j' : [ 'd', 'i', 'g']},
-{'a' : False,
-'b' : False,
+{'a' : True,
+'b' : True,
 'c' : False,
 'd' : False,
 'e' : False,
 'f' : False,
-'g' : False,
+'g' : True,
 'h' : False,
-'i' : False ,
-'j' : False})
+'i' : True ,
+'j' : True})
+print(coloredgraph.check_if_zfs())
+
 print(petersontest.get_zfn())
