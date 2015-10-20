@@ -52,12 +52,13 @@ class graph:
 		return zfsgraphcolorings
 	def colornextvertex(self, vertex):
 		self.colored[vertex] = not self.colored[vertex]
-		print("reversed color of vertex " + vertex)
-		self.print_graph()
+		# print("reversed color of vertex " + vertex) debug line
+		# self.print_graph() # debug line
 		if self.check_if_zfs() == True:
 			return copy.deepcopy(self)
 		else:
-			print("not a zfs")	
+			#print("not a zfs") #debug line
+			pass	
 		if self.colored[vertex] == False:
 			try:
 				nextvertex = self.vertexlist[self.vertexlist.index(vertex) + 1]			
@@ -65,8 +66,23 @@ class graph:
 			except:
 				pass
 		return None
-				
-				
+	def num_colored_verticies(self):
+		numcolored = 0 
+		for vertex in self.colored:
+			if self.colored[vertex]:
+				 numcolored +=1 
+			else:
+				pass
+		return numcolored
+	def get_zfn(self):
+		zfn = len(self.vertexlist)
+		zfses = self.try_all_possible_colorings()
+		for zfs in zfses:
+			thisone = zfs.num_colored_verticies()
+			if zfn >= thisone:
+				zfn = thisone
+		return zfn
+		
 coloredgraph = graph({'a' : ["b", "c"], 'b' : ["a", "c"], 'c' : ["a", "b"]},
 {'a' : True, 'b' : True, 'c' : False})
 print(coloredgraph.is_colored('c'))
@@ -74,5 +90,5 @@ print(coloredgraph.check_if_zfs())
 print(coloredgraph.is_colored('c'))
 coloredgraph.print_graph()
 print("now trying every possible coloring")
-print(coloredgraph.try_all_possible_colorings())
+print(coloredgraph.get_zfn())
 # petersontest = graph({'a' : ["
