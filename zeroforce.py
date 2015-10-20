@@ -13,25 +13,28 @@ class graph:
 			print(vertex, self.colored[vertex], self.incident[vertex])
 	def do_color_change_step(self):
 		for vertex in self.vertexlist:
+			#print(vertex)
 			if self.colored[vertex] == True:
 				non_c_adj_count = 0
+				nonc_neighbor = None
 				for neighbor in self.incident[vertex]:
 					if self.colored[neighbor] == False:
-						 non_c_adj_count +=1
+						non_c_adj_count +=1
+						nonc_neighbor= neighbor
 				if non_c_adj_count == 1:
-					for neighbor in self.incident[vertex]:
-						if self.colored[neighbor] == False:
-							self.colored[neighbor] = True
-							print("colored " + neighbor)
+					self.colored[nonc_neighbor] = True
+					#print("colored " + nonc_neighbor)
+				
+			
 	def check_if_zfs(self): #checks if the graph is a zero forcing set
 		#print("checking a graph...")
 		maxiters = len(self.incident)
 		i = 0
 		tempgraph = copy.deepcopy(self)
 		while i < maxiters:
-			print(i)
+			#print(i)
 			tempgraph.do_color_change_step()
-			tempgraph.print_graph()
+			#tempgraph.print_graph()
 			i += 1
 		#print("done checking")
 		for vertex in self.vertexlist:
@@ -94,8 +97,9 @@ class graph:
 		
 coloredgraph = graph({'a' : ["b", "c"], 'b' : ["a", "c"], 'c' : ["a", "b"]},
 {'a' : True, 'b' : True, 'c' : False})
-#print("zfn k3:")
-#print(coloredgraph.get_zfn())
+print(coloredgraph.check_if_zfs())
+print("zfn k3:")
+print(coloredgraph.get_zfn())
 petersontest = graph({'a' : ["b", "e", 'g'],
 'b' : [ 'a', 'c', 'h'],
 'c' : [ 'b', 'd', 'i'],
@@ -104,8 +108,8 @@ petersontest = graph({'a' : ["b", "e", 'g'],
 'f' : [ 'e', 'h', 'i'],
 'g' : [ 'a', 'i', 'j'],
 'h' : [ 'b', 'f', 'j'],
-'i' : [ 'c', 'j', 'g'],
-'j' : [ 'd', 'i', 'g']},
+'i' : [ 'c', 'f', 'g'],
+'j' : [ 'd', 'h', 'g']},
 {'a' : True,
 'b' : False,
 'c' : False,
@@ -117,6 +121,6 @@ petersontest = graph({'a' : ["b", "e", 'g'],
 'i' : False,
 'j' : True})
 print(petersontest.check_if_zfs())
-#print("zfn peterson")
-#print(petersontest.get_zfn())
-#(petersontest.get_zfs_example().print_graph())
+print("zfn peterson")
+print(petersontest.get_zfn())
+(petersontest.get_zfs_example().print_graph())
