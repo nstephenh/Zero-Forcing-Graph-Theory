@@ -112,6 +112,5 @@ test = graph(
 
  
 print(test.get_zfn())
-print(test.check_if_zfs())
-#test.get_zfs_example().print_graph()
+test.get_zfs_example().print_graph()
 
