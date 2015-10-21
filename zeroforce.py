@@ -1,5 +1,5 @@
 import copy
-
+import math
 
 class graph:
 	def __init__(self, incident, colored):
@@ -46,30 +46,15 @@ class graph:
 		for vertex in blankgraph.vertexlist:
 			blankgraph.colored[vertex] = False
 		zfsgraphcolorings = []
-		for vertex in blankgraph.vertexlist:
-			result = None
-			for i in (range(0, len(blankgraph.vertexlist))):
-				result = blankgraph.colornextvertex(vertex)
-				if result != None:
-					zfsgraphcolorings.append(result)
-			
+		for i in range(0, 2**(len(blankgraph.vertexlist))):
+			bincount = list('0'*(len(blankgraph.vertexlist)-len(bin(i)[2:]))+bin(i)[2:]) #0s' and 1s
+			testgraph = copy.deepcopy(blankgraph)
+			for vertex in testgraph.vertexlist:
+				testgraph.colored[vertex] = bool(int(bincount[testgraph.vertexlist.index(vertex)]))
+			if testgraph.check_if_zfs():
+				zfsgraphcolorings.append(testgraph)
 		return zfsgraphcolorings
-	def colornextvertex(self, vertex):
-		self.colored[vertex] = not self.colored[vertex]
-		# print("reversed color of vertex " + vertex) debug line
-		# self.print_graph() # debug line
-		if self.check_if_zfs() == True:
-			return copy.deepcopy(self)
-		else:
-			#print("not a zfs") #debug line
-			pass	
-		if self.colored[vertex] == False:
-			try:
-				nextvertex = self.vertexlist[self.vertexlist.index(vertex) + 1]			
-				return self.colornextvertex(nextvertex)
-			except:
-				pass
-		return None
+
 	def num_colored_verticies(self):
 		numcolored = 0 
 		for vertex in self.colored:
@@ -78,13 +63,13 @@ class graph:
 			else:
 				pass
 		return numcolored
+
 	def get_zfszfn(self):
 		zfn = len(self.vertexlist)
 		zfsofzfn = None
 		zfses = self.try_all_possible_colorings()
 		for zfs in zfses:
 			thisone = zfs.num_colored_verticies()
-			#print(thisone)
 			if zfn >= thisone:
 				zfn = thisone
 				zfsofzfn = zfs
@@ -128,5 +113,5 @@ test = graph(
  
 print(test.get_zfn())
 print(test.check_if_zfs())
-test.get_zfs_example().print_graph()
+#test.get_zfs_example().print_graph()
 
