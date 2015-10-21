@@ -95,32 +95,48 @@ class graph:
 	def get_zfs_example(self):
 		return self.get_zfszfn()[0]
 		
-coloredgraph = graph({'a' : ["b", "c"], 'b' : ["a", "c"], 'c' : ["a", "b"]},
-{'a' : True, 'b' : True, 'c' : False})
-print(coloredgraph.check_if_zfs())
-print("zfn k3:")
-print(coloredgraph.get_zfn())
-petersontest = graph({'a' : ["b", "e", 'g'],
-'b' : [ 'a', 'c', 'h'],
-'c' : [ 'b', 'd', 'i'],
-'d' : [ 'c', 'e', 'j'],
-'e' : [ 'a', 'd', 'f'],
-'f' : [ 'e', 'h', 'i'],
-'g' : [ 'a', 'i', 'j'],
-'h' : [ 'b', 'f', 'j'],
-'i' : [ 'c', 'f', 'g'],
-'j' : [ 'd', 'h', 'g']},
-{'a' : True,
+#coloredgraph = graph({'a' : ["b", "c"], 'b' : ["a", "c"], 'c' : ["a", "b"]},
+#{'a' : True, 'b' : True, 'c' : False})
+#print(coloredgraph.check_if_zfs())
+#print("zfn k3:")
+#print(coloredgraph.get_zfn())
+test = graph(
+{'a' : ['b', 'p', 'q'],
+'b' : ['a', 'c', 'h', 'p'],
+'c' : ['b', 'd', 'g', 'o'],
+'d' : ['e', 'f', 'h', 'c'],
+'e' : ['f', 'd', 'q'],
+'f' : ['d', 'e', 'g', 'l'],
+'g' : ['c', 'h', 'k', 'f'],
+'h' : ['b', 'g', 'i', 'j'],
+'i' : ['h', 'j', 'q'],
+'j' : ['h', 'i', 'k', 'p'],
+'k' : ['g', 'j', 'l', 'o'],
+'l' : ['f', 'k', 'm', 'n'],
+'m' : ['l', 'n', 'q'],
+'n' : ['d', 'l', 'm', 'o'],
+'o' : ['c', 'k', 'n', 'p'],
+'p' : ['a', 'b', 'j', 'o'],
+'q' : ['a', 'e', 'i', 'm']
+},
+{'a': False,
 'b' : False,
 'c' : False,
 'd' : False,
 'e' : False,
 'f' : False,
-'g' : True,
+'g' : False,
 'h' : False,
 'i' : False,
-'j' : True})
-print(petersontest.check_if_zfs())
-print("zfn peterson")
-print(petersontest.get_zfn())
-(petersontest.get_zfs_example().print_graph())
+'j' : False,
+'k' : False,
+'l' : False,
+'m' : False,
+'n' : False,
+'o' : False,
+'p' : False,
+'q' : False
+}) 
+print(test.get_zfn())
+test.get_zfs_example().print_graph()
+
