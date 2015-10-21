@@ -101,42 +101,32 @@ class graph:
 #print("zfn k3:")
 #print(coloredgraph.get_zfn())
 test = graph(
-{'a' : ['b', 'p', 'q'],
-'b' : ['a', 'c', 'h', 'p'],
-'c' : ['b', 'd', 'g', 'o'],
-'d' : ['e', 'f', 'h', 'c'],
-'e' : ['f', 'd', 'q'],
-'f' : ['d', 'e', 'g', 'l'],
-'g' : ['c', 'h', 'k', 'f'],
-'h' : ['b', 'g', 'i', 'j'],
-'i' : ['h', 'j', 'q'],
-'j' : ['h', 'i', 'k', 'p'],
-'k' : ['g', 'j', 'l', 'o'],
-'l' : ['f', 'k', 'm', 'n'],
-'m' : ['l', 'n', 'q'],
-'n' : ['d', 'l', 'm', 'o'],
-'o' : ['c', 'k', 'n', 'p'],
-'p' : ['a', 'b', 'j', 'o'],
-'q' : ['a', 'e', 'i', 'm']
+{'a' : ['e', 'f', 'g', 'h', 'i'],
+'b' : ['e', 'f', 'g', 'h', 'i'],
+'c' : ['e', 'f', 'g', 'h', 'i'],
+'d' : ['e', 'f', 'g', 'h', 'i'],
+'e' : ['a', 'b', 'c', 'd', 'j'],
+'f' : ['a', 'b', 'c', 'd', 'j'],
+'g' : ['a', 'b', 'c', 'd', 'j'],
+'h' : ['a', 'b', 'c', 'd', 'j'],
+'i' : ['a', 'b', 'c', 'd', 'j'],
+'j' : ['e', 'f', 'g', 'h', 'i']
 },
 {'a': False,
-'b' : False,
-'c' : False,
-'d' : False,
-'e' : False,
-'f' : False,
-'g' : False,
+'b' : True,
+'c' : True,
+'d' : True,
+'e' : True,
+'f' : True,
+'g' : True,
 'h' : False,
 'i' : False,
-'j' : False,
-'k' : False,
-'l' : False,
-'m' : False,
-'n' : False,
-'o' : False,
-'p' : False,
-'q' : False
-}) 
+'j' : False
+})
+
+
+ 
 print(test.get_zfn())
+print(test.check_if_zfs())
 test.get_zfs_example().print_graph()
 
