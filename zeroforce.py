@@ -1,5 +1,6 @@
 import copy
 import math
+from assort import assort
 
 class graph:
 	def __init__(self, incident, colored):
@@ -68,17 +69,24 @@ class graph:
 		zfn = len(self.vertexlist)
 		zfsofzfn = None
 		zfses = self.try_all_possible_colorings()
+		zfsbyzfn = {}
 		for zfs in zfses:
 			thisone = zfs.num_colored_verticies()
 			if zfn >= thisone:
 				zfn = thisone
 				zfsofzfn = zfs
+				zfsbyzfn[zfs] = zfn
 		
-		return (zfsofzfn, zfn)
+		return (zfsbyzfn, zfn)
 	def get_zfn(self):
 		return self.get_zfszfn()[1]
-	def get_zfs_example(self):
-		return self.get_zfszfn()[0]
+	def get_all_zfs(self):
+		zfs = self.get_zfszfn()[0]
+		bynumber = assort(zfs)
+		numbers = list(bynumber.keys())
+		numbers.sort()
+		return bynumber[numbers[-1]]
+		
 		
 #coloredgraph = graph({'a' : ["b", "c"], 'b' : ["a", "c"], 'c' : ["a", "b"]},
 #{'a' : True, 'b' : True, 'c' : False})
@@ -90,12 +98,11 @@ test = graph(
 'b' : ['e', 'f', 'g', 'h', 'i'],
 'c' : ['e', 'f', 'g', 'h', 'i'],
 'd' : ['e', 'f', 'g', 'h', 'i'],
-'e' : ['a', 'b', 'c', 'd', 'j'],
-'f' : ['a', 'b', 'c', 'd', 'j'],
-'g' : ['a', 'b', 'c', 'd', 'j'],
-'h' : ['a', 'b', 'c', 'd', 'j'],
-'i' : ['a', 'b', 'c', 'd', 'j'],
-'j' : ['e', 'f', 'g', 'h', 'i']
+'e' : ['a', 'b', 'c', 'd'],
+'f' : ['a', 'b', 'c', 'd'],
+'g' : ['a', 'b', 'c', 'd'],
+'h' : ['a', 'b', 'c', 'd'],
+'i' : ['a', 'b', 'c', 'd']
 },
 {'a': False,
 'b' : True,
@@ -105,12 +112,14 @@ test = graph(
 'f' : True,
 'g' : True,
 'h' : False,
-'i' : False,
-'j' : False
+'i' : False
 })
 
 
  
-print(test.get_zfn())
-test.get_zfs_example().print_graph()
+for example in test.get_all_zfs():
+	print("ZFS:")
+	example.print_graph()
+	print("")
 
+print(test.get_zfn())
