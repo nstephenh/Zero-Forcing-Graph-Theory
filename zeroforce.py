@@ -96,12 +96,11 @@ class graph:
 #{'a' : True, 'b' : True, 'c' : False})
 #print(coloredgraph.check_if_zfs())
 #print("zfn k3:")
-#print(coloredgraph.get_zfn())i
-print(dir())
+#print(coloredgraph.get_zfn())
 from exgraphs import *
-for example in graph(bipartite_k3_5).get_all_zfs():
+for example in graph(tree_k_2_4).get_all_zfs():
 	print("ZFS:")
 	example.print_graph()
 	print("")
 
-print(graph(bipartite_k3_5).get_zfn())
+print(graph(tree_k_2_4).get_zfn())
