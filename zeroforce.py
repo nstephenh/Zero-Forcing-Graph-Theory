@@ -3,10 +3,14 @@ import math
 from assort import assort
 
 class graph:
-	def __init__(self, incident, colored):
+	def __init__(self, incident, colored = {}):
 		self.incident = incident
 		self.colored = colored
 		self.vertexlist = list(incident.keys())
+		if colored == {}:
+			for vertex in self.vertexlist:
+				self.colored[vertex] = False
+
 	def is_colored(self, verticy):
 		return self.colored[verticy]
 	def print_graph(self):
@@ -92,34 +96,12 @@ class graph:
 #{'a' : True, 'b' : True, 'c' : False})
 #print(coloredgraph.check_if_zfs())
 #print("zfn k3:")
-#print(coloredgraph.get_zfn())
-test = graph(
-{'a' : ['e', 'f', 'g', 'h', 'i'],
-'b' : ['e', 'f', 'g', 'h', 'i'],
-'c' : ['e', 'f', 'g', 'h', 'i'],
-'d' : ['e', 'f', 'g', 'h', 'i'],
-'e' : ['a', 'b', 'c', 'd'],
-'f' : ['a', 'b', 'c', 'd'],
-'g' : ['a', 'b', 'c', 'd'],
-'h' : ['a', 'b', 'c', 'd'],
-'i' : ['a', 'b', 'c', 'd']
-},
-{'a': False,
-'b' : True,
-'c' : True,
-'d' : True,
-'e' : True,
-'f' : True,
-'g' : True,
-'h' : False,
-'i' : False
-})
-
-
- 
-for example in test.get_all_zfs():
+#print(coloredgraph.get_zfn())i
+print(dir())
+from exgraphs import *
+for example in graph(bipartite_k3_5).get_all_zfs():
 	print("ZFS:")
 	example.print_graph()
 	print("")
 
-print(test.get_zfn())
+print(graph(bipartite_k3_5).get_zfn())
