@@ -98,9 +98,9 @@ class graph:
 #print("zfn k3:")
 #print(coloredgraph.get_zfn())
 from exgraphs import *
-for example in graph(tree_k_2_4).get_all_zfs():
+for example in graph(tree_k_2_3).get_all_zfs():
 	print("ZFS:")
 	example.print_graph()
 	print("")
 
-print(graph(tree_k_2_4).get_zfn())
+print(graph(tree_k_2_3).get_zfn())
