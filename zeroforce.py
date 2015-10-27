@@ -7,10 +7,14 @@ class graph:
 		self.incident = incident
 		self.colored = colored
 		self.vertexlist = list(incident.keys())
+		try:
+			self.vertexlist.sort(reverse = True)
+		except Exception as e:
+			print(e)
 		if colored == {}:
 			for vertex in self.vertexlist:
 				self.colored[vertex] = False
-
+		
 	def is_colored(self, verticy):
 		return self.colored[verticy]
 	def print_graph(self):
@@ -46,7 +50,7 @@ class graph:
 			if tempgraph.colored[vertex] != True:
 				return False
 		return True
-	def try_all_possible_colorings(self): #that return as a zfs
+	def try_all_possible_colorings(self, verbose = False): #that return as a zfs
 		blankgraph = copy.deepcopy(self)
 		for vertex in blankgraph.vertexlist:
 			blankgraph.colored[vertex] = False
@@ -58,6 +62,8 @@ class graph:
 				testgraph.colored[vertex] = bool(int(bincount[testgraph.vertexlist.index(vertex)]))
 			if testgraph.check_if_zfs():
 				zfsgraphcolorings.append(testgraph)
+				if verbose == True:
+					testgraph.print_graph()
 		return zfsgraphcolorings
 
 	def num_colored_verticies(self):
@@ -98,10 +104,12 @@ class graph:
 #print("zfn k3:")
 #print(coloredgraph.get_zfn())
 from exgraphs import *
-both = graph(tree_k_3_3).get_all_zfs_and_zfn()
+both = graph(tree_k_2_4).get_all_zfs_and_zfn()
 for example in both[0]:
 	print("ZFS:")
 	example.print_graph()
 	print("")
 
 print(both[1])
+
+#graph(tree_k_3_4).try_all_possible_colorings(True)
