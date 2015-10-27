@@ -84,13 +84,13 @@ class graph:
 		return (zfsbyzfn, zfn)
 	def get_zfn(self):
 		return self.get_zfszfn()[1]
-	def get_all_zfs(self):
-		zfs = self.get_zfszfn()[0]
+	def get_all_zfs_and_zfn(self):
+		zfszfn = self.get_zfszfn()
+		zfs = zfszfn[0]
 		bynumber = assort(zfs)
 		numbers = list(bynumber.keys())
 		numbers.sort()
-		return bynumber[numbers[-1]]
-		
+		return bynumber[numbers[-1]], zfszfn[1]	
 		
 #coloredgraph = graph({'a' : ["b", "c"], 'b' : ["a", "c"], 'c' : ["a", "b"]},
 #{'a' : True, 'b' : True, 'c' : False})
@@ -98,9 +98,10 @@ class graph:
 #print("zfn k3:")
 #print(coloredgraph.get_zfn())
 from exgraphs import *
-for example in graph(tree_k_2_3).get_all_zfs():
+both = graph(tree_k_3_3).get_all_zfs_and_zfn()
+for example in both[0]:
 	print("ZFS:")
 	example.print_graph()
 	print("")
 
-print(graph(tree_k_2_3).get_zfn())
+print(both[1])
