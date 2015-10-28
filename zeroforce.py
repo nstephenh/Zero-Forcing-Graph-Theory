@@ -104,7 +104,7 @@ class graph:
 #print("zfn k3:")
 #print(coloredgraph.get_zfn())
 from exgraphs import *
-both = graph(tree_k_2_3).get_all_zfs_and_zfn()
+both = graph(notpete6).get_all_zfs_and_zfn()
 for example in both[0]:
 	print("ZFS:")
 	example.print_graph()
